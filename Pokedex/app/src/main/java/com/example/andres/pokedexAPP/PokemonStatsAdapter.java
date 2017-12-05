@@ -1,16 +1,13 @@
-package com.example.andres.pokedex;
+package com.example.andres.pokedexAPP;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.andres.pokedex.Models.PokemonStats;
-import com.example.andres.pokedexAPP.R;
+import com.example.andres.pokedexAPP.Models.PokemonStats;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.andres.pokedex;
+package com.example.andres.pokedexAPP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.andres.pokedex.Models.Pokemon;
-import com.example.andres.pokedex.Models.PokemonStats;
-import com.example.andres.pokedexAPP.R;
+import com.example.andres.pokedexAPP.Models.Pokemon;
 
 import java.util.ArrayList;
 
@@ -33,6 +31,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         this.context = context;
         dataset = new ArrayList<>();
     }
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pokemon, parent, false);
 

@@ -1,4 +1,4 @@
-package com.example.andres.pokedex;
+package com.example.andres.pokedexAPP;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +10,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.andres.pokedex.Models.EvolutionChain;
-import com.example.andres.pokedex.Models.EvolutionChainResponse;
-import com.example.andres.pokedex.Models.EvolutionDetails;
-import com.example.andres.pokedex.Models.PokedexEntry;
-import com.example.andres.pokedex.Models.PokedexEntryResponse;
-import com.example.andres.pokedex.Models.Pokemon;
-import com.example.andres.pokedex.Models.PokemonCompleteInfo;
-import com.example.andres.pokedex.Models.PokemonStatsResponse;
-import com.example.andres.pokedex.Models.PokemonTypes;
-import com.example.andres.pokedex.pokeapi.PokeapiService;
-import com.example.andres.pokedexAPP.R;
+import com.example.andres.pokedexAPP.Models.EvolutionChain;
+import com.example.andres.pokedexAPP.Models.EvolutionChainResponse;
+import com.example.andres.pokedexAPP.Models.EvolutionDetails;
+import com.example.andres.pokedexAPP.Models.PokedexEntry;
+import com.example.andres.pokedexAPP.Models.PokedexEntryResponse;
+import com.example.andres.pokedexAPP.Models.Pokemon;
+import com.example.andres.pokedexAPP.Models.PokemonCompleteInfo;
+import com.example.andres.pokedexAPP.Models.PokemonStatsResponse;
+import com.example.andres.pokedexAPP.Models.PokemonTypes;
+import com.example.andres.pokedexAPP.pokeapi.PokeapiService;
 
 import java.util.ArrayList;
 

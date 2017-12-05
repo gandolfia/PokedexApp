@@ -1,4 +1,4 @@
-package com.example.andres.pokedex;
+package com.example.andres.pokedexAPP;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.andres.pokedex.Models.Pokemon;
-import com.example.andres.pokedex.Models.PokemonResponse;
-import com.example.andres.pokedex.pokeapi.PokeapiService;
-import com.example.andres.pokedexAPP.R;
+import com.example.andres.pokedexAPP.Models.Pokemon;
+import com.example.andres.pokedexAPP.Models.PokemonResponse;
+import com.example.andres.pokedexAPP.pokeapi.PokeapiService;
 
 import java.util.ArrayList;
 

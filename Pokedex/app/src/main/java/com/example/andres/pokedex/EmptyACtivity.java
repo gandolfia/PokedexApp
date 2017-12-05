@@ -12,6 +12,7 @@ import com.example.andres.pokedex.Models.Pokemon;
 import com.example.andres.pokedex.Models.PokemonSort;
 import com.example.andres.pokedex.Models.PokemonResponse;
 import com.example.andres.pokedex.pokeapi.PokeapiService;
+import com.example.andres.pokedexAPP.R;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class EmptyACtivity extends AppCompatActivity {
     private Button button;
 
     private RecyclerView recyclerView;
+
     private PokemonListAdapter pokemonListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

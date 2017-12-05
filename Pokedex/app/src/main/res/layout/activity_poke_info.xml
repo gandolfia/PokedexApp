@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andres.pokedex.PokeInfoActivity">
+
+    <ImageView
+        android:id="@+id/InfoPokeimageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="7dp"
+        app:layout_constraintRight_toLeftOf="@+id/InfoPokeShinyimageView"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.636"
+        android:layout_marginEnd="8dp" />
+    <ImageView
+        android:id="@+id/InfoPokeShinyimageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/PNametextView"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginRight="70dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="70dp" />
+        <TextView
+            android:id="@+id/PNametextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="PokemonName"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="9dp"
+            app:layout_constraintTop_toBottomOf="@+id/InfoPokeimageView" />
+        <TextView
+            android:id="@+id/HPtextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HP"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/PokedexEntrytextView" />
+
+        <TextView
+            android:id="@+id/AttacktextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attack"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/HPtextView" />
+
+    <TextView
+        android:id="@+id/DefencetextView"
+        android:text="Defence"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/AttacktextView" />
+
+    <TextView
+        android:id="@+id/SpAtextView"
+        android:text="SpA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="9dp"
+        app:layout_constraintTop_toBottomOf="@+id/DefencetextView"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/SpDtextView"
+        android:text="SpD"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/SpAtextView"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/SpeedtextView"
+        android:text="Speed"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/SpDtextView"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+    <ImageView
+        android:id="@+id/PokemonType1"
+        android:layout_width="104dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PNametextView"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp" />
+    <ImageView
+        android:id="@+id/PokemonType2"
+        android:layout_width="104dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PNametextView"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/PokemonType1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+    <TextView
+        android:text="PEntry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:id="@+id/PokedexEntrytextView"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PokemonType1" />
+    <ImageView
+        android:id="@+id/Evolution1imageView"
+        android:text="Evo1"
+        android:layout_width="95dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/WeighttextView" />
+    <ImageView
+        android:id="@+id/Evolution2imageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/Evolution1imageView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/Evolution3imageView"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/WeighttextView" />
+
+    <ImageView
+        android:id="@+id/Evolution3imageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/WeighttextView" />
+    <TextView
+        android:id="@+id/HeighttextView"
+        android:text="Height"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/SpeedtextView" />
+    <TextView
+        android:id="@+id/WeighttextView"
+        android:text="Weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/HeighttextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp" />
+    <ProgressBar
+        android:id="@+id/HpBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@+id/PokedexEntrytextView"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent" />
+    <ProgressBar
+        android:id="@+id/AttBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/HpBar"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent" />
+    <ProgressBar
+        android:id="@+id/DefBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/AttBar" />
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/DefBar"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/SpAttBar" />
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/SpdfBar"
+        android:layout_marginTop="11dp"
+        app:layout_constraintTop_toBottomOf="@+id/SpAttBar" />
+    <ProgressBar
+        android:id="@+id/SpdBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="11dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/SpdfBar" />
+
+</android.support.constraint.ConstraintLayout>

@@ -52,10 +52,10 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
                 }
                 else {
                     String id = Integer.toString(dataset.get(position).getNumber());
-
-                    Intent intent = new Intent(context, PokeInfoActivity.class).putExtra("com.example.andres.pokedex.EXTRA_URL", id);
+                    String pokemonname = dataset.get(position).getName();
+                    Intent intent = new Intent(context, PokeInfoActivity.class).putExtra("com.example.andres.pokedex.EXTRA_URL", id).putExtra("POKEMON_NAME", pokemonname);
                     context.startActivity(intent);
-                    Toast.makeText(context, "Pokemon Id: " + dataset.get(position).getNumber(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, "Pokemon Id: " + dataset.get(position).getNumber(), Toast.LENGTH_LONG).show();
                 }
             }
         });

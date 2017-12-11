@@ -34,17 +34,42 @@ public class PokeInfoActivity extends AppCompatActivity {
     private String TAG = "PokeInfoActivity";
     private Retrofit retrofit;
     private TextView pokemonName, hp, attack, defence, spAttack, spDef, speed,
-            height, weight, PokexedEntryText;
+            height, weight, PokedexEntryTView;
     private ImageView pokemonphoto, pokemonshiny, pokemontype1, pokemontype2, evolution1, evolution2, evolution3;
     private ProgressBar speedBar, spDefBar, spAttBar, defenceBar, attackBar, HPBar;
+    int Speed, SPD, SPA, DEF, ATT, HP;
+    String POKEMON_NAME;
+    ProgressBar pbarspinne1, pbarspinne2, pbarspinne3, pbarspinne4;
+    int Type1 ;
+    int Type2;
+    int size, PokemonColor ;
+    float Height ;
+    float Weight ;
+    int EvolutionId;
+    int HighestValue = 0;
+    String pokeid, pokeid1, pokeid2;
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_info);
         PokemonEvolutionId = "1";
+        /*ProgressDialog dialog = new ProgressDialog(this); // this = YourActivity
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();*/
+        pbarspinne1 = (ProgressBar) findViewById(R.id.progressBar2);
+        pbarspinne2 = (ProgressBar) findViewById(R.id.progressBar3);
+        pbarspinne3 = (ProgressBar) findViewById(R.id.progressBar4);
+        pbarspinne4 = (ProgressBar) findViewById(R.id.progressBar5);
+
+
         UrlToGetInfo = getIntent().getStringExtra("com.example.andres.pokedex.EXTRA_URL");
         pokemonName = (TextView) findViewById(R.id.PNametextView);
+        pokemonName.setText(getIntent().getStringExtra("POKEMON_NAME").toUpperCase());
         hp = (TextView) findViewById(R.id.HPtextView);
         attack = (TextView) findViewById(R.id.AttacktextView);
         defence = (TextView) findViewById(R.id.DefencetextView);
@@ -53,7 +78,7 @@ public class PokeInfoActivity extends AppCompatActivity {
         speed = (TextView) findViewById(R.id.SpeedtextView);
         weight = (TextView) findViewById(R.id.WeighttextView);
         height = (TextView) findViewById(R.id.HeighttextView);
-        PokexedEntryText = (TextView) findViewById(R.id.PokedexEntrytextView);
+        PokedexEntryTView = (TextView) findViewById(R.id.PokedexEntrytextView);
         pokemonphoto = (ImageView) findViewById(R.id.InfoPokeimageView);
         pokemonshiny = (ImageView) findViewById(R.id.InfoPokeShinyimageView);
         pokemontype1 = (ImageView) findViewById(R.id.PokemonType1);
@@ -69,13 +94,193 @@ public class PokeInfoActivity extends AppCompatActivity {
         HPBar = (ProgressBar) findViewById(R.id.HpBar);
         //pokemonName.setText(UrlToGetInfo);
 
+        Glide.with(PokeInfoActivity.this)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ UrlToGetInfo + ".png")
+                .centerCrop()
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(pokemonphoto);
+        Glide.with(PokeInfoActivity.this)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/"+ UrlToGetInfo + ".png")
+                .centerCrop()
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(pokemonshiny);
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         GetData();
+
       //  GetEvolutionLine();
+    }
+
+    private void DisplayInfo() {
+        switch (Type1)
+        {
+            case 1: pokemontype1.setImageResource(R.drawable.pokemontype_normal);
+                break;
+            case 2: pokemontype1.setImageResource(R.drawable.pokemontype_fighting);
+                break;
+            case 3: pokemontype1.setImageResource(R.drawable.pokemontype_flying);
+                break;
+            case 4: pokemontype1.setImageResource(R.drawable.pokemontype_poison);
+                break;
+            case 5: pokemontype1.setImageResource(R.drawable.pokemontype_ground);
+                break;
+            case 6: pokemontype1.setImageResource(R.drawable.pokemontype_rock);
+                break;
+            case 7: pokemontype1.setImageResource(R.drawable.pokemontype_bug);
+                break;
+            case 8: pokemontype1.setImageResource(R.drawable.pokemontype_ghost);
+                break;
+            case 9: pokemontype1.setImageResource(R.drawable.pokemontype_steel);
+                break;
+            case 10: pokemontype1.setImageResource(R.drawable.pokemontype_fire);
+                break;
+            case 11: pokemontype1.setImageResource(R.drawable.pokemontype_water);
+                break;
+            case 12: pokemontype1.setImageResource(R.drawable.pokemontype_grass);
+                break;
+            case 13: pokemontype1.setImageResource(R.drawable.pokemontype_electric);
+                break;
+            case 14: pokemontype1.setImageResource(R.drawable.pokemontype_psychic);
+                break;
+            case 15: pokemontype1.setImageResource(R.drawable.pokemontype_ice);
+                break;
+            case 16: pokemontype1.setImageResource(R.drawable.pokemontype_dragon);
+                break;
+            case 17: pokemontype1.setImageResource(R.drawable.pokemontype_dark);
+                break;
+            case 18: pokemontype1.setImageResource(R.drawable.pokemontype_fairy);
+                break;
+        }
+
+        pbarspinne1.setVisibility(View.GONE);
+        if(size > 1)
+        {
+            switch (Type1)
+            {
+                case 1: pokemontype2.setImageResource(R.drawable.pokemontype_normal);
+                    break;
+                case 2: pokemontype2.setImageResource(R.drawable.pokemontype_fighting);
+                    break;
+                case 3: pokemontype2.setImageResource(R.drawable.pokemontype_flying);
+                    break;
+                case 4: pokemontype2.setImageResource(R.drawable.pokemontype_poison);
+                    break;
+                case 5: pokemontype2.setImageResource(R.drawable.pokemontype_ground);
+                    break;
+                case 6: pokemontype2.setImageResource(R.drawable.pokemontype_rock);
+                    break;
+                case 7: pokemontype2.setImageResource(R.drawable.pokemontype_bug);
+                    break;
+                case 8: pokemontype2.setImageResource(R.drawable.pokemontype_ghost);
+                    break;
+                case 9: pokemontype2.setImageResource(R.drawable.pokemontype_steel);
+                    break;
+                case 10: pokemontype2.setImageResource(R.drawable.pokemontype_fire);
+                    break;
+                case 11: pokemontype2.setImageResource(R.drawable.pokemontype_water);
+                    break;
+                case 12: pokemontype2.setImageResource(R.drawable.pokemontype_grass);
+                    break;
+                case 13: pokemontype2.setImageResource(R.drawable.pokemontype_electric);
+                    break;
+                case 14: pokemontype2.setImageResource(R.drawable.pokemontype_psychic);
+                    break;
+                case 15: pokemontype2.setImageResource(R.drawable.pokemontype_ice);
+                    break;
+                case 16: pokemontype2.setImageResource(R.drawable.pokemontype_dragon);
+                    break;
+                case 17: pokemontype2.setImageResource(R.drawable.pokemontype_dark);
+                    break;
+                case 18: pokemontype2.setImageResource(R.drawable.pokemontype_fairy);
+                    break;
+            }
+            switch (Type2)
+            {
+                case 1: pokemontype1.setImageResource(R.drawable.pokemontype_normal);
+                    break;
+                case 2: pokemontype1.setImageResource(R.drawable.pokemontype_fighting);
+                    break;
+                case 3: pokemontype1.setImageResource(R.drawable.pokemontype_flying);
+                    break;
+                case 4: pokemontype1.setImageResource(R.drawable.pokemontype_poison);
+                    break;
+                case 5: pokemontype1.setImageResource(R.drawable.pokemontype_ground);
+                    break;
+                case 6: pokemontype1.setImageResource(R.drawable.pokemontype_rock);
+                    break;
+                case 7: pokemontype1.setImageResource(R.drawable.pokemontype_bug);
+                    break;
+                case 8: pokemontype1.setImageResource(R.drawable.pokemontype_ghost);
+                    break;
+                case 9: pokemontype1.setImageResource(R.drawable.pokemontype_steel);
+                    break;
+                case 10: pokemontype1.setImageResource(R.drawable.pokemontype_fire);
+                    break;
+                case 11: pokemontype1.setImageResource(R.drawable.pokemontype_water);
+                    break;
+                case 12: pokemontype1.setImageResource(R.drawable.pokemontype_grass);
+                    break;
+                case 13: pokemontype1.setImageResource(R.drawable.pokemontype_electric);
+                    break;
+                case 14: pokemontype1.setImageResource(R.drawable.pokemontype_psychic);
+                    break;
+                case 15: pokemontype1.setImageResource(R.drawable.pokemontype_ice);
+                    break;
+                case 16: pokemontype1.setImageResource(R.drawable.pokemontype_dragon);
+                    break;
+                case 17: pokemontype1.setImageResource(R.drawable.pokemontype_dark);
+                    break;
+                case 18: pokemontype1.setImageResource(R.drawable.pokemontype_fairy);
+                    break;
+            }
+        }
+
+
+        String stupid = Float.toString(Height);
+        speedBar.setMax(HighestValue);
+        spDefBar.setMax(HighestValue);
+        spAttBar.setMax(HighestValue);
+        attackBar.setMax(HighestValue);
+        defenceBar.setMax(HighestValue);
+
+        HPBar.setMax(HighestValue);
+        speedBar.setProgress(Speed);
+        speedBar.setVisibility(View.VISIBLE);
+        spDefBar.setProgress(SPD);
+        spDefBar.setVisibility(View.VISIBLE);
+        spAttBar.setProgress(SPA);
+        spAttBar.setVisibility(View.VISIBLE);
+        attackBar.setProgress(ATT);
+        attackBar.setVisibility(View.VISIBLE);
+        defenceBar.setProgress(DEF);
+        defenceBar.setVisibility(View.VISIBLE);
+        HPBar.setProgress(HP);
+        HPBar.setVisibility(View.VISIBLE);
+        weight.setText("Weight: " + Float.toString(Weight) + " kg");
+        weight.setVisibility(View.VISIBLE);
+        height.setText("Height: " + Float.toString(Height) + " m");
+        height.setVisibility(View.VISIBLE);
+        pbarspinne3.setVisibility(View.GONE);
+        speed.setText("Speed: " + Speed);
+        speed.setVisibility(View.VISIBLE);
+        spDef.setText("SpDef: " + SPD);
+        spDef.setVisibility(View.VISIBLE);
+        spAttack.setText("SpAtt: " + SPA);
+        spAttack.setVisibility(View.VISIBLE);
+        defence.setText("Defence: " + DEF);
+        defence.setVisibility(View.VISIBLE);
+        attack.setText("Attack: " + ATT);
+        attack.setVisibility(View.VISIBLE);
+        hp.setText("HP: " + HP);
+        hp.setVisibility(View.VISIBLE);
+        pbarspinne4.setVisibility(View.GONE);
+
+
     }
 
     private void GetData() {
@@ -92,7 +297,7 @@ public class PokeInfoActivity extends AppCompatActivity {
 
                     ArrayList<PokemonStatsResponse> pokemonstatsr = pokemonResponse.getStats();
                     ArrayList<PokemonTypes> pokemontype = pokemonResponse.getTypes();
-                    int HighestValue = 0;
+
                     for (int i = 0; i < pokemonstatsr.size(); i++)
                     {
                            if(HighestValue < pokemonstatsr.get(i).getBase_stat())
@@ -100,177 +305,22 @@ public class PokeInfoActivity extends AppCompatActivity {
                             HighestValue = pokemonstatsr.get(i).getBase_stat();
                         }
                     }
-                    String Speed =  Integer.toString(pokemonstatsr.get(0).getBase_stat());
-                    String SPD =  Integer.toString(pokemonstatsr.get(1).getBase_stat());
-                    String SPA =  Integer.toString(pokemonstatsr.get(2).getBase_stat());
-                    String DEF =  Integer.toString(pokemonstatsr.get(3).getBase_stat());
-                    String ATT =  Integer.toString(pokemonstatsr.get(4).getBase_stat());
-                    String HP =  Integer.toString(pokemonstatsr.get(5).getBase_stat());
-                    int Type1 = pokemontype.get(0).getType().getNumber();
-                    int Type2;
 
-
-                    switch (Type1)
-                    {
-                        case 1: pokemontype1.setImageResource(R.drawable.pokemontype_normal);
-                            break;
-                        case 2: pokemontype1.setImageResource(R.drawable.pokemontype_fighting);
-                            break;
-                        case 3: pokemontype1.setImageResource(R.drawable.pokemontype_flying);
-                            break;
-                        case 4: pokemontype1.setImageResource(R.drawable.pokemontype_poison);
-                            break;
-                        case 5: pokemontype1.setImageResource(R.drawable.pokemontype_ground);
-                            break;
-                        case 6: pokemontype1.setImageResource(R.drawable.pokemontype_rock);
-                            break;
-                        case 7: pokemontype1.setImageResource(R.drawable.pokemontype_bug);
-                            break;
-                        case 8: pokemontype1.setImageResource(R.drawable.pokemontype_ghost);
-                            break;
-                        case 9: pokemontype1.setImageResource(R.drawable.pokemontype_steel);
-                            break;
-                        case 10: pokemontype1.setImageResource(R.drawable.pokemontype_fire);
-                            break;
-                        case 11: pokemontype1.setImageResource(R.drawable.pokemontype_water);
-                            break;
-                        case 12: pokemontype1.setImageResource(R.drawable.pokemontype_grass);
-                            break;
-                        case 13: pokemontype1.setImageResource(R.drawable.pokemontype_electric);
-                            break;
-                        case 14: pokemontype1.setImageResource(R.drawable.pokemontype_psychic);
-                            break;
-                        case 15: pokemontype1.setImageResource(R.drawable.pokemontype_ice);
-                            break;
-                        case 16: pokemontype1.setImageResource(R.drawable.pokemontype_dragon);
-                            break;
-                        case 17: pokemontype1.setImageResource(R.drawable.pokemontype_dark);
-                            break;
-                        case 18: pokemontype1.setImageResource(R.drawable.pokemontype_fairy);
-                            break;
-                    }
-
+                    Speed = (pokemonstatsr.get(0).getBase_stat());
+                    SPD = (pokemonstatsr.get(1).getBase_stat());
+                    SPA = (pokemonstatsr.get(2).getBase_stat());
+                    DEF = (pokemonstatsr.get(3).getBase_stat());
+                    ATT = (pokemonstatsr.get(4).getBase_stat());
+                    HP =  (pokemonstatsr.get(5).getBase_stat());
+                    Height = pokemonResponse.getHeight() * .1f;
+                    Weight = pokemonResponse.getWeight() * .1f;
+                    Type1 = pokemontype.get(0).getType().getNumber();
+                    size = pokemontype.size();
                     if(pokemontype.size() > 1)
-                    {
                         Type2 = pokemontype.get(1).getType().getNumber();
-                        switch (Type1)
-                        {
-                            case 1: pokemontype2.setImageResource(R.drawable.pokemontype_normal);
-                                break;
-                            case 2: pokemontype2.setImageResource(R.drawable.pokemontype_fighting);
-                                break;
-                            case 3: pokemontype2.setImageResource(R.drawable.pokemontype_flying);
-                                break;
-                            case 4: pokemontype2.setImageResource(R.drawable.pokemontype_poison);
-                                break;
-                            case 5: pokemontype2.setImageResource(R.drawable.pokemontype_ground);
-                                break;
-                            case 6: pokemontype2.setImageResource(R.drawable.pokemontype_rock);
-                                break;
-                            case 7: pokemontype2.setImageResource(R.drawable.pokemontype_bug);
-                                break;
-                            case 8: pokemontype2.setImageResource(R.drawable.pokemontype_ghost);
-                                break;
-                            case 9: pokemontype2.setImageResource(R.drawable.pokemontype_steel);
-                                break;
-                            case 10: pokemontype2.setImageResource(R.drawable.pokemontype_fire);
-                                break;
-                            case 11: pokemontype2.setImageResource(R.drawable.pokemontype_water);
-                                break;
-                            case 12: pokemontype2.setImageResource(R.drawable.pokemontype_grass);
-                                break;
-                            case 13: pokemontype2.setImageResource(R.drawable.pokemontype_electric);
-                                break;
-                            case 14: pokemontype2.setImageResource(R.drawable.pokemontype_psychic);
-                                break;
-                            case 15: pokemontype2.setImageResource(R.drawable.pokemontype_ice);
-                                break;
-                            case 16: pokemontype2.setImageResource(R.drawable.pokemontype_dragon);
-                                break;
-                            case 17: pokemontype2.setImageResource(R.drawable.pokemontype_dark);
-                                break;
-                            case 18: pokemontype2.setImageResource(R.drawable.pokemontype_fairy);
-                                break;
-                        }
-                        switch (Type2)
-                        {
-                            case 1: pokemontype1.setImageResource(R.drawable.pokemontype_normal);
-                                break;
-                            case 2: pokemontype1.setImageResource(R.drawable.pokemontype_fighting);
-                                break;
-                            case 3: pokemontype1.setImageResource(R.drawable.pokemontype_flying);
-                                break;
-                            case 4: pokemontype1.setImageResource(R.drawable.pokemontype_poison);
-                                break;
-                            case 5: pokemontype1.setImageResource(R.drawable.pokemontype_ground);
-                                break;
-                            case 6: pokemontype1.setImageResource(R.drawable.pokemontype_rock);
-                                break;
-                            case 7: pokemontype1.setImageResource(R.drawable.pokemontype_bug);
-                                break;
-                            case 8: pokemontype1.setImageResource(R.drawable.pokemontype_ghost);
-                                break;
-                            case 9: pokemontype1.setImageResource(R.drawable.pokemontype_steel);
-                                break;
-                            case 10: pokemontype1.setImageResource(R.drawable.pokemontype_fire);
-                                break;
-                            case 11: pokemontype1.setImageResource(R.drawable.pokemontype_water);
-                                break;
-                            case 12: pokemontype1.setImageResource(R.drawable.pokemontype_grass);
-                                break;
-                            case 13: pokemontype1.setImageResource(R.drawable.pokemontype_electric);
-                                break;
-                            case 14: pokemontype1.setImageResource(R.drawable.pokemontype_psychic);
-                                break;
-                            case 15: pokemontype1.setImageResource(R.drawable.pokemontype_ice);
-                                break;
-                            case 16: pokemontype1.setImageResource(R.drawable.pokemontype_dragon);
-                                break;
-                            case 17: pokemontype1.setImageResource(R.drawable.pokemontype_dark);
-                                break;
-                            case 18: pokemontype1.setImageResource(R.drawable.pokemontype_fairy);
-                                break;
-                        }
-                    }
-                    Glide.with(PokeInfoActivity.this)
-                            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ UrlToGetInfo + ".png")
-                            .centerCrop()
-                            .crossFade()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(pokemonphoto);
-                    Glide.with(PokeInfoActivity.this)
-                            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/"+ UrlToGetInfo + ".png")
-                            .centerCrop()
-                            .crossFade()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(pokemonshiny);
 
-                    float Height = pokemonResponse.getHeight() * .1f;
-                    float Weight = pokemonResponse.getWeight() * .1f;
-                    String stupid = Float.toString(Height);
-                    speedBar.setMax(HighestValue);
-                    spDefBar.setMax(HighestValue);
-                    spAttBar.setMax(HighestValue);
-                    attackBar.setMax(HighestValue);
-                    defenceBar.setMax(HighestValue);
-                    HPBar.setMax(HighestValue);
-                    speedBar.setProgress(pokemonstatsr.get(0).getBase_stat());
-                    spDefBar.setProgress(pokemonstatsr.get(1).getBase_stat());
-                    spAttBar.setProgress(pokemonstatsr.get(2).getBase_stat());
-                    attackBar.setProgress(pokemonstatsr.get(4).getBase_stat());
-                    defenceBar.setProgress(pokemonstatsr.get(3).getBase_stat());
-                    HPBar.setProgress(pokemonstatsr.get(5).getBase_stat());
-                    weight.setText(Float.toString(Weight) + " kg");
-                    height.setText(Float.toString(Height) + " m");
-                    speed.setText("Speed: " + Speed);
-                    spDef.setText("SpDef: " + SPD);
-                    spAttack.setText("SpAtt: " + SPA);
-                    defence.setText("Defence: " + DEF);
-                    attack.setText("Attack: " + ATT);
-                    hp.setText("HP: " + HP);
+                    DisplayInfo();
 
-
-                    pokemonName.setText(pokemonResponse.getName().toUpperCase());
 
                     //pokemonListAdapter.addPokemonList(pokemonList);
 
@@ -295,7 +345,7 @@ public class PokeInfoActivity extends AppCompatActivity {
                 PokedexEntryResponse pokedexEntryResponse = response.body();
                 EvolutionDetails evolutionDetails = pokedexEntryResponse.getEvolution_chain();
 
-                int EvolutionId = evolutionDetails.getNumber();
+                 EvolutionId = evolutionDetails.getNumber();
                 ArrayList<PokedexEntry> pokedexentries = pokedexEntryResponse.getFlavor_text_entries();
                 String PokedexEntryText = "PokedexEntry";
                 for (int i = 0; i < pokedexentries.size(); i++)
@@ -306,10 +356,14 @@ public class PokeInfoActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                PokexedEntryText.setText(PokedexEntryText);
+                PokemonColor = pokedexEntryResponse.getColor().getNumber();
+                PokedexEntryTView.setText(PokedexEntryText);
+                PokedexEntryTView.setVisibility(View.VISIBLE);
+                pbarspinne2.setVisibility(View.GONE);
                 PokemonEvolutionId = Integer.toString(EvolutionId);
 
                 GetEvolutionLine();
+
             }
 
             @Override
@@ -332,7 +386,7 @@ public class PokeInfoActivity extends AppCompatActivity {
                 ArrayList<EvolutionChain> ActualEvoChain = new ArrayList<EvolutionChain>();
                 ArrayList<Integer> EvoId = new ArrayList<Integer>();
                 Pokemon species = evolutionChain.getSpecies();
-                int count = 1;
+                count = 1;
                 ArrayList<String> evolutionnames = new ArrayList<String>();
                 evolutionnames.add(evolutionChain.getSpecies().getName());
                 EvoId.add(evolutionChain.getSpecies().getNumber());
@@ -351,36 +405,19 @@ public class PokeInfoActivity extends AppCompatActivity {
                 }
                 evolution2.setVisibility(View.GONE);
                 evolution3.setVisibility(View.GONE);
-                String pokeid = EvoId.get(0).toString();
-                Glide.with(PokeInfoActivity.this)
-                        .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ pokeid + ".png")
-                        .centerCrop()
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(evolution1);
+                pokeid = EvoId.get(0).toString();
                 if(count > 1)
                 {
-                    pokeid = EvoId.get(1).toString();
-                    Glide.with(PokeInfoActivity.this)
-                            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ pokeid + ".png")
-                            .centerCrop()
-                            .crossFade()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(evolution2);
+                    pokeid1 = EvoId.get(1).toString();
                     evolution2.setVisibility(View.VISIBLE);
                     if(count == 3)
                     {
-                        pokeid = EvoId.get(2).toString();
-                        Glide.with(PokeInfoActivity.this)
-                                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ pokeid + ".png")
-                                .centerCrop()
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(evolution3);
+                        pokeid2 = EvoId.get(2).toString();
                         evolution3.setVisibility(View.VISIBLE);
                     }
 
                 }
+                DisplayInfo2();
 
             }
 
@@ -390,6 +427,31 @@ public class PokeInfoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void DisplayInfo2() {
+        Glide.with(PokeInfoActivity.this)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ pokeid + ".png")
+                .centerCrop()
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(evolution1);
+        if(count > 1) {
+            Glide.with(PokeInfoActivity.this)
+                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeid1 + ".png")
+                    .centerCrop()
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(evolution2);
+            if (count > 2) {
+                Glide.with(PokeInfoActivity.this)
+                        .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeid2 + ".png")
+                        .centerCrop()
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(evolution3);
+            }
+        }
     }
 
 

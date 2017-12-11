@@ -9,6 +9,15 @@ import java.util.ArrayList;
 public class PokedexEntryResponse {
     private ArrayList<PokedexEntry> flavor_text_entries;
     private EvolutionDetails evolution_chain;
+    private Pokemon color;
+
+    public Pokemon getColor() {
+        return color;
+    }
+
+    public void setColor(Pokemon color) {
+        this.color = color;
+    }
 
     public EvolutionDetails getEvolution_chain() {
         return evolution_chain;

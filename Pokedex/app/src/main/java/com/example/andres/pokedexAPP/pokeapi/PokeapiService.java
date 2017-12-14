@@ -20,13 +20,13 @@ public interface PokeapiService {
 
 
     @GET("pokemon")
-    Call<PokemonResponse> GetPokemonList(@Query("limit") int limit, @Query("offset") int offset);
+    Call<PokemonResponse> GetPokemonList(@Query("limit") int limit/*, @Query("offset") int offset*/);
 
     @GET("pokemon/{id}")
     Call<PokemonCompleteInfo> GetPokemonInfo(@Path("id") String id);
 
     @GET("pokemon-color/5")
-    Call<PokemonSort> GetPokemonSearchList(@Query("limit") int limit, @Query("offset") int offset);
+    Call<PokemonSort> GetPokemonSearchList(@Query("limit") int limit/*, @Query("offset") int offset*/);
 
     @GET("pokemon-species/{id}")
     Call<PokedexEntryResponse> GetPokedexEntry(@Path("id") String id);

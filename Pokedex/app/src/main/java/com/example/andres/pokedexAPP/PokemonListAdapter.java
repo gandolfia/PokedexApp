@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -20,6 +19,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
     private ArrayList<Pokemon> dataset;
     private Context context;
+    private ArrayList<Pokemon> itemsToShow;
 
 
     public void Clear()
@@ -27,9 +27,25 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         dataset.clear();
     }
 
+    public void filter(String text) {
+        dataset.clear();
+        if(text.isEmpty()){
+            dataset.addAll(itemsToShow);
+        } else{
+            text = text.toLowerCase();
+            for(Pokemon item: itemsToShow){
+                if(item.getName().toLowerCase().contains(text.toLowerCase()) || Integer.toString(item.getNumber()).contains(text)){
+                    dataset.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public PokemonListAdapter(Context context) {
         this.context = context;
         dataset = new ArrayList<>();
+        itemsToShow = new ArrayList<>();
     }
 
     @Override
@@ -76,6 +92,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
     public void addPokemonList(ArrayList<Pokemon> pokemonList) {
         dataset.addAll(pokemonList);
+        itemsToShow.addAll(pokemonList);
         notifyDataSetChanged();
     }
 

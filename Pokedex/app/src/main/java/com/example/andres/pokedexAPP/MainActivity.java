@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void GetSearchData(int Offset) {
 
         PokeapiService service = retrofit.create(PokeapiService.class);
-        Call<PokemonResponse> PokemonResponseCall = service.GetPokemonList(20, Offset);
+        Call<PokemonResponse> PokemonResponseCall = service.GetPokemonList(802/*, Offset*/);
         PokemonResponseCall.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {

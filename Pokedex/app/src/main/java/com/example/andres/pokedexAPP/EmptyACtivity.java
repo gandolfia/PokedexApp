@@ -4,7 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import  android.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -94,16 +98,38 @@ public class EmptyACtivity extends AppCompatActivity {
                 .build();
         ReadyToLoad = true;
         Offset = 0;
-
         GetData(Offset);
 
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                pokemonListAdapter.filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                pokemonListAdapter.filter(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void GetData(int Offset) {
 
         PokeapiService service = retrofit.create(PokeapiService.class);
-        Call<PokemonResponse> PokemonResponseCall = service.GetPokemonList(20, Offset);
+        Call<PokemonResponse> PokemonResponseCall = service.GetPokemonList(802/*, Offset*/);
         PokemonResponseCall.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
@@ -135,7 +161,7 @@ public class EmptyACtivity extends AppCompatActivity {
     private void GetSearchData(int Offset) {
 
         PokeapiService service = retrofit.create(PokeapiService.class);
-        Call<PokemonSort> PokemonResponseCall = service.GetPokemonSearchList(800, Offset);
+        Call<PokemonSort> PokemonResponseCall = service.GetPokemonSearchList(802/*, Offset*/);
         PokemonResponseCall.enqueue(new Callback<PokemonSort>() {
             @Override
             public void onResponse(Call<PokemonSort> call, Response<PokemonSort> response) {

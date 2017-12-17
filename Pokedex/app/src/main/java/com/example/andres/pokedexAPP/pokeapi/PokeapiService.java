@@ -5,6 +5,7 @@ import com.example.andres.pokedexAPP.Models.PokedexEntryResponse;
 import com.example.andres.pokedexAPP.Models.PokemonSort;
 import com.example.andres.pokedexAPP.Models.PokemonCompleteInfo;
 import com.example.andres.pokedexAPP.Models.PokemonResponse;
+import com.example.andres.pokedexAPP.Models.PokemonTypeListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -25,8 +26,11 @@ public interface PokeapiService {
     @GET("pokemon/{id}")
     Call<PokemonCompleteInfo> GetPokemonInfo(@Path("id") String id);
 
-    @GET("pokemon-color/5")
-    Call<PokemonSort> GetPokemonSearchList(@Query("limit") int limit/*, @Query("offset") int offset*/);
+    @GET("type")
+    Call<PokemonResponse> GetPokemonType();
+
+    @GET("type/{id}")
+    Call<PokemonTypeListResponse> GetPokemonSearchList(@Path("id") String id);
 
     @GET("pokemon-species/{id}")
     Call<PokedexEntryResponse> GetPokedexEntry(@Path("id") String id);

@@ -1,5 +1,7 @@
 package com.example.andres.pokedexAPP.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by Andres on 11/13/2017.
  */
@@ -9,6 +11,15 @@ public class Pokemon {
     private int number;
     private String name;
     private String url;
+    private ArrayList<PokemonTypes> types;
+
+    public ArrayList<PokemonTypes> getTypes() {
+        return types;
+    }
+
+    public void setTypes(ArrayList<PokemonTypes> types) {
+        this.types = types;
+    }
 
     public int getNumber() {
         String[] urlparts = url.split("/");

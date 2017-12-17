@@ -1,8 +1,13 @@
 package com.example.andres.pokedexAPP;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,6 +43,7 @@ public class PokeInfoActivity extends AppCompatActivity {
     private ImageView pokemonphoto, pokemonshiny, pokemontype1, pokemontype2, evolution1, evolution2, evolution3;
     private ProgressBar speedBar, spDefBar, spAttBar, defenceBar, attackBar, HPBar;
     int Speed, SPD, SPA, DEF, ATT, HP;
+    boolean back_pressed;
     String POKEMON_NAME;
     ProgressBar pbarspinne1, pbarspinne2, pbarspinne3, pbarspinne4;
     int Type1 ;
@@ -49,6 +55,9 @@ public class PokeInfoActivity extends AppCompatActivity {
     int HighestValue = 0;
     String pokeid, pokeid1, pokeid2;
     int count;
+    private String name;
+    private String name1;
+    private String name2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,7 @@ public class PokeInfoActivity extends AppCompatActivity {
         pbarspinne4 = (ProgressBar) findViewById(R.id.progressBar5);
 
 
+        back_pressed = false;
         UrlToGetInfo = getIntent().getStringExtra("com.example.andres.pokedex.EXTRA_URL");
         pokemonName = (TextView) findViewById(R.id.PNametextView);
         pokemonName.setText(getIntent().getStringExtra("POKEMON_NAME").toUpperCase());
@@ -111,9 +121,36 @@ public class PokeInfoActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
         GetData();
 
       //  GetEvolutionLine();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        MenuItem item = menu.findItem(R.id.menuHome);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                Intent homeIntent = new Intent(this, EmptyACtivity.class);
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                back_pressed = true;
+                startActivity(homeIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        back_pressed = true;
     }
 
     private void DisplayInfo() {
@@ -389,6 +426,7 @@ public class PokeInfoActivity extends AppCompatActivity {
                 count = 1;
                 ArrayList<String> evolutionnames = new ArrayList<String>();
                 evolutionnames.add(evolutionChain.getSpecies().getName());
+                name = evolutionnames.get(0);
                 EvoId.add(evolutionChain.getSpecies().getNumber());
                 ArrayList<ArrayList<EvolutionChain>> evolutions = new ArrayList<ArrayList<EvolutionChain>>();
                 if(evolutionChain.getEvolves_to().size() > 0)
@@ -396,11 +434,13 @@ public class PokeInfoActivity extends AppCompatActivity {
                     evolutionnames.add(evolutionChain.getEvolves_to().get(0).getSpecies().getName());
                     EvoId.add(evolutionChain.getEvolves_to().get(0).getSpecies().getNumber());
                     count++;
+                    name1 = evolutionnames.get(1);
                     if(evolutionChain.getEvolves_to().get(0).getEvolves_to().size() > 0)
                     {
                         evolutionnames.add(evolutionChain.getEvolves_to().get(0).getEvolves_to().get(0).getSpecies().getName());
                         EvoId.add(evolutionChain.getEvolves_to().get(0).getEvolves_to().get(0).getSpecies().getNumber());
                         count++;
+                        name2 = evolutionnames.get(2);
                     }
                 }
                 evolution2.setVisibility(View.GONE);
@@ -417,7 +457,8 @@ public class PokeInfoActivity extends AppCompatActivity {
                     }
 
                 }
-                DisplayInfo2();
+                if(!back_pressed)
+                    DisplayInfo2(pokeid, pokeid1, pokeid2, count, evolution1, evolution2, evolution3, PokeInfoActivity.this);
 
             }
 
@@ -429,27 +470,53 @@ public class PokeInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void DisplayInfo2() {
-        Glide.with(PokeInfoActivity.this)
+    private void DisplayInfo2(final String pokeid, final String pokeid1, final String pokeid2, int count, ImageView evolution1, ImageView evolution2,
+                              ImageView evolution3, Context context) {
+        Glide.with(context)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ pokeid + ".png")
                 .centerCrop()
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(evolution1);
+        if(!pokeid.equals(UrlToGetInfo))
+        evolution1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PokeInfoActivity.this, MainActivity.class).putExtra("com.example.andres.pokedex.EXTRA_URL", pokeid).putExtra("POKEMON_NAME", name);
+                PokeInfoActivity.this.startActivity(intent);
+            }
+        });
         if(count > 1) {
-            Glide.with(PokeInfoActivity.this)
+            Glide.with(context)
                     .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeid1 + ".png")
                     .centerCrop()
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(evolution2);
+
+            if(!pokeid1.equals(UrlToGetInfo))
+            evolution2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PokeInfoActivity.this, MainActivity.class).putExtra("com.example.andres.pokedex.EXTRA_URL", pokeid1).putExtra("POKEMON_NAME", name1);
+                PokeInfoActivity.this.startActivity(intent);
+            }
+        });
             if (count > 2) {
-                Glide.with(PokeInfoActivity.this)
+                Glide.with(context)
                         .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeid2 + ".png")
                         .centerCrop()
                         .crossFade()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(evolution3);
+                if(!pokeid2.equals(UrlToGetInfo))
+                evolution3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PokeInfoActivity.this, MainActivity.class).putExtra("com.example.andres.pokedex.EXTRA_URL", pokeid2).putExtra("POKEMON_NAME", name2);
+                        PokeInfoActivity.this.startActivity(intent);
+                    }
+                });
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.andres.pokedexAPP;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,7 +41,6 @@ public class EmptyACtivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty_activity);
-
 
         sort = true;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
